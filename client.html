@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel ="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+  </head>  
+  <style>
+    #Progress {
+      width: 565px;
+      background-color: grey;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 8px;
+    }
+  
+    #Bar {
+      width: 0%;
+      height: 20px;
+      background-color: teal;
+      color:white;
+      line-height: 20px;
+      border-radius: 10px;
+    }  
+  </style>
+  
+  <body>
+    <div style="text-align:center" class="block">
+    
+      <h1>google.script.run concurrency test</h1>
+      
+      <div class="block">
+         <a href="https://twitter.com/pfelipm" target="_blank">@pfelipm</a>
+      </div>
+    
+      <div class="block">
+        <label for="txt_workers">Server-side instances to spawn:</label>
+        <input type="number" id="txt_workers" min="1" max="10000" value="30"></input>
+      </div>
+    
+      <div class="block">
+        <label for="txt_time">Execution time (ms) for each worker:</label>
+        <input type="number" id="txt_time" min="100" max="30000" value="1000" step ="100"></input>
+      </div>
+    
+      <div class="block">
+        <input type="button" value="Spawn workers!" class="action" id="btn_run" onclick="spawn()">
+      </div>
+      
+      <div class="block">
+        <label for="txt_log">Log:</label><br>
+        <textarea id="txt_log" rows="30" cols="90" disabled></textarea>
+      </div>
+      
+      <div id="Progress">
+        <div id="Bar"></div>
+      </div>
+    
+      <table style="border-spacing: 20px; margin-left: auto; margin-right: auto;">
+      <tr>
+      <td>
+        Elapsed ⏳ (ms)
+        <div id="div_time">---</div>
+      </td>
+      <td>
+        Workers ✅️ 
+        <div id="div_OK">---</div>
+      </td>
+      <td>
+        Workers ❌
+        <div id="div_KO">---</div>
+      </td>
+      
+      <td>
+        Est. avg. workers 👷
+        <div id="div_avg">---</div>
+      </td>
+    
+    </div>
+    
+    <script>
+    
+      function spawn() {
+      
+        const nWorkers = +document.getElementById("txt_workers").value;
+        const ms = +document.getElementById("txt_time").value;
+        const t1 = Date.now();
+        
+        let nWorkersLeft = nWorkers;
+        let nWorkersOk = 0, nWorkersKo = 0;
+        
+        document.getElementById("txt_log").value = '';
+        document.getElementById("div_time").innerHTML = '---';
+        document.getElementById("div_OK").innerHTML = '---';
+        document.getElementById("div_KO").innerHTML = '---';
+        document.getElementById("div_avg").innerHTML = '---';
+        document.getElementById("Bar").style.width = "0%";
+        document.getElementById("btn_run").disabled = true;
+                
+        for (let i = 1; i <= nWorkers; i++) {  
+          google.script.run
+            .withSuccessHandler(function(result) {
+              nWorkersOk++;
+              updateLogBox(result, 'OK :-)', i, --nWorkersLeft, t1, nWorkersOk, nWorkersKo);
+            }) 
+            .withFailureHandler(function(result) {
+              nWorkersKo++;
+              updateLogBox(result, 'KO :-(', i, --nWorkersLeft, t1, nWorkersOk, nWorkersKo);
+            })
+            .serverTask(ms);
+        }
+      
+      }
+      
+      function updateLogBox(result, status, worker, nWorkersLeft, t1, nWorkersOk, nWorkersKo) {
+      
+        const logBox = document.getElementById("txt_log");
+        logBox.value = logBox.value + 'Worker ' + worker + ': ' + (result == null ? status : result) + '\n';
+        const width = 100 * (nWorkersOk + nWorkersKo) / (nWorkersLeft + nWorkersOk + nWorkersKo);
+        document.getElementById("Bar").style.width =  width + "%";
+        document.getElementById("Bar").innerHTML =  Math.round(width) + "%";
+        document.getElementById("div_time").innerHTML = Date.now() - t1;
+        document.getElementById("div_OK").innerHTML = nWorkersOk;
+        document.getElementById("div_KO").innerHTML = nWorkersKo;
+        document.getElementById("div_avg").innerHTML = Math.round(+document.getElementById("txt_time").value * nWorkersOk / (Date.now() - t1));
+        if (!nWorkersLeft) {
+          document.getElementById("btn_run").disabled = false;
+        }
+
+      }
+    
+    </script>
+ 
+  </body>
+</html>
+
+
