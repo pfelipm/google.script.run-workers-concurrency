@@ -114,7 +114,7 @@
       function updateLogBox(result, status, worker, nWorkersLeft, t1, nWorkersOk, nWorkersKo) {
       
         const logBox = document.getElementById("txt_log");
-        logBox.value = logBox.value + 'Worker ' + worker + ': ' + (result == null ? status : result) + '\n';
+        logBox.value = 'Worker ' + worker + ': ' + (result == null ? status : result) + '\n' + logBox.value;
         const width = 100 * (nWorkersOk + nWorkersKo) / (nWorkersLeft + nWorkersOk + nWorkersKo);
         document.getElementById("Bar").style.width =  width + "%";
         document.getElementById("Bar").innerHTML =  Math.round(width) + "%";
