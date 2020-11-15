@@ -1,4 +1,4 @@
-# google.script.run-workers-test
+# google.script.run workers concurrency test
 
 The official docs for Google Apps Script state [this](https://developers.google.com/apps-script/guides/services/quotas):
 
