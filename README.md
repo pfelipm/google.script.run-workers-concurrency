@@ -4,7 +4,7 @@ The official docs for Google Apps Script state [this](https://developers.google.
 
 <table><tbody><tr><td><strong>Feature</strong></td><td><strong>Consumer (e.g., gmail.com)</strong></td><td><strong>G Suite free edition (</strong><a href="https://support.google.com/a/answer/2855120"><strong>legacy</strong></a><strong>)</strong></td><td><strong>Basic / Gov</strong></td><td><strong>G Suite Business / Enterprise / Education</strong></td></tr><tr><td>Simultaneous executions</td><td>30</td><td>30</td><td>30</td><td>30</td></tr></tbody></table>
 
-But, what does _simultaneous executions_ mean? In which possible situations does that limit apply? 🤔
+But, what does _simultaneous executions_ mean? In which possible situations could that limit apply? 🤔
 
 1.  Apps Script functions consumed as an API.
 2.  Event-triggered Apps Script functions.
