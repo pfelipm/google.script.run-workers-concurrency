@@ -8,7 +8,7 @@ But, what does _simultaneous executions_ mean? In which possible situations coul
 
 1.  Apps Script functions consumed as an API.
 2.  Event-triggered Apps Script functions.
-3.  `doGet()` method when a user accesses a webapp.
+3.  `doGet()` / `doPost()` methods when a user accesses a webapp.
 4.  `google.script.run()` asynchronous invocation of server-side Apps Script functions.
 
 Motivated by [this](https://twitter.com/LifeOfSpy/status/1326510264020328449) and [this](https://groups.google.com/g/google-apps-script-community/c/qUUGk6G1AnA/m/iKH8KBTiAgAJ), I've set up this test webapp to check which limits apply to **\[4\]**.
