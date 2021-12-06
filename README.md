@@ -1,3 +1,4 @@
+![Creado con - Google Apps Script](https://img.shields.io/static/v1?label=Creado+con&message=Google+Apps+Script&color=blue&style=for-the-badge&logo=GAS)
 # google.script.run workers concurrency test
 
 The official docs for Google Apps Script state [this](https://developers.google.com/apps-script/guides/services/quotas):
