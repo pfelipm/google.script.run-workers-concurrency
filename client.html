@@ -24,29 +24,29 @@
   </style>
   
   <body>
-    <div style="text-align:center" class="block">
+    <div style="text-align:center">
     
       <h1>google.script.run concurrency test</h1>
       
-      <div class="block">
+      <div>
          <a href="https://twitter.com/pfelipm" target="_blank">@pfelipm</a>
       </div>
     
-      <div class="block">
+      <div>
         <label for="txt_workers">Server-side instances to spawn:</label>
         <input type="number" id="txt_workers" min="1" max="10000" value="30"></input>
       </div>
     
-      <div class="block">
+      <div>
         <label for="txt_time">Execution time (ms) for each worker:</label>
         <input type="number" id="txt_time" min="100" max="30000" value="1000" step ="100"></input>
       </div>
     
-      <div class="block">
+      <div>
         <input type="button" value="Spawn workers!" class="action" id="btn_run" onclick="spawn()">
       </div>
       
-      <div class="block">
+      <div>
         <label for="txt_log">Log:</label><br>
         <textarea id="txt_log" rows="30" cols="80" disabled></textarea>
       </div>
